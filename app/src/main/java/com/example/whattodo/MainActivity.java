@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,11 +17,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity {
 
     Button newList;
     TextView textView;
+
+    ArrayList<String> tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         newList = findViewById(R.id.button);
         textView = findViewById(R.id.taskList);
+        tasks = new ArrayList<>();
 
         newList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,18 +57,35 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        ArrayList<String> tasks = intent.getStringArrayListExtra("Tasklist");
+        ArrayList<String> receivedTasks = intent.getStringArrayListExtra("Tasklist");
 
-        if (tasks != null) {
-            StringBuilder buildList = new StringBuilder();
-
-            for (String task : tasks) {
-                buildList.append(task).append("\n"+"\n");
-            }
-
-            String showList = buildList.toString();
-
-            textView.setText(showList);
+        if (receivedTasks != null) {
+            tasks.addAll(receivedTasks);
+            displayTasks();
         }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        saveTasks();
+    }
+    private void saveTasks(){
+        SharedPreferences sharedPreferences = getSharedPreferences("SaveList", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("TaskList", new HashSet<>(tasks));
+        editor.apply();
+    }
+
+    private void displayTasks(){
+        StringBuilder buildList = new StringBuilder();
+
+        for (String task : tasks) {
+            buildList.append(task).append("\n"+"\n");
+        }
+
+        String showList = buildList.toString();
+
+        textView.setText(showList);
     }
 }
