@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         saveTasks();
+        System.out.println("Wird aufgerufen.");
     }
     private void saveTasks(){
         SharedPreferences sharedPreferences = getSharedPreferences("SaveList", Context.MODE_PRIVATE);
