@@ -25,17 +25,18 @@ public class AlarmReceiver extends BroadcastReceiver {
         createNotificationChannel(context);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle("Erinnerung")
                 .setContentText("Check your ToDos")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
-        NotificationManagerCompat notificationManagerCompat =  NotificationManagerCompat.from(context);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(NOTIFICATION_TAG, NOTIFICATION_ID, builder.build());
     }
 
-    private void createNotificationChannel(Context context){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    private void createNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "My_Channel";
             String description = "Channel despcription";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;

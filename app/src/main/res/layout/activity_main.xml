@@ -12,7 +12,7 @@
         android:layout_width="416dp"
         android:layout_height="47dp"
         android:background="#D9D9D9D9"
-        android:text="ToDo Listen"
+        android:text="ToDo Liste"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/black"
@@ -25,7 +25,7 @@
         android:layout_height="58dp"
         android:layout_marginStart="4dp"
         android:background="#FFFFFF"
-        android:text="Liste hinzufügen"
+        android:text="Neue Liste"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/black"
@@ -64,5 +64,14 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/message"
+        android:layout_width="81dp"
+        android:layout_height="135dp"
+        android:layout_marginBottom="61dp"
+        android:text="Message"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
